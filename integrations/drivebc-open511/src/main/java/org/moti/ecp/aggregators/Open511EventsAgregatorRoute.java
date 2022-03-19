@@ -24,6 +24,7 @@ public class Open511EventsAgregatorRoute extends RouteBuilder {
             exchange.getIn().setHeader(Exchange.HTTP_QUERY, queryString);
           }
         })
+        .log("API Called")
         .routeId("open511-events-service")
         .onException(HttpOperationFailedException.class)
         .handled(true)    
