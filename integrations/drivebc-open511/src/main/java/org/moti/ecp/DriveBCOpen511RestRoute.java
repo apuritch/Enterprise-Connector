@@ -15,14 +15,12 @@ public class DriveBCOpen511RestRoute extends RouteBuilder {
   @Override
   public void configure() {
 
-    // This section is required - it tells Camel how to configure the REST service
+    // Configure the REST service
     restConfiguration()
         .component("netty-http")
         .port("{{application.port}}")
         .enableCORS(true)
-
         .bindingMode(RestBindingMode.json)
-
         // turn on swagger api-doc
         .apiContextPath("/api-doc")
         .apiProperty("api.title", "DriveBC Open511 Proxy API")
@@ -31,9 +29,6 @@ public class DriveBCOpen511RestRoute extends RouteBuilder {
     // rest("/api")
     rest()
         .path("/api") // This makes the API available at http://host:port/$CONTEXT_ROOT/api
-        .consumes("application/json")
-        .produces("application/json")
-
         .get("{all}")
         .route().routeId("rest-open511-events")
         .to("direct:rest-open511-events")
