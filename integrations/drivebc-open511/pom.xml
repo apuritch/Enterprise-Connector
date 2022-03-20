@@ -67,12 +67,13 @@
     <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-netty-http</artifactId>
-
     </dependency>
-    <!-- support swagger api-doc -->
+
+
+    <!-- include springodc so we can browse the api docs in a swagger web ui -->
     <dependency>
       <groupId>org.apache.camel.springboot</groupId>
-      <artifactId>camel-swagger-java-starter</artifactId>
+      <artifactId>camel-springdoc-starter</artifactId>
     </dependency>
 
     <!-- use http as rest producer -->
