@@ -102,7 +102,11 @@
       <groupId>org.apache.camel.springboot</groupId>
       <artifactId>camel-xslt-starter</artifactId>
     </dependency>
-
+    <!-- Camel Simple-->
+    <dependency>
+      <groupId>org.apache.camel.springboot</groupId>
+      <artifactId>camel-core-starter</artifactId>
+    </dependency>
     <!-- Camel Quartz-->
     <dependency>
       <groupId>org.apache.camel.springboot</groupId>
