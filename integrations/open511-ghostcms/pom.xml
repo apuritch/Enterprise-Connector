@@ -15,7 +15,8 @@
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <spring.boot-version>2.6.1</spring.boot-version>
     <surefire.plugin.version>3.0.0-M4</surefire.plugin.version>
-    <camel.version>3.6.0</camel.version>
+    <!-- <camel.version>3.6.0</camel.version> -->
+    <camel-version>3.16.0-SNAPSHOT</camel-version>
   </properties>
 
   <dependencyManagement>
@@ -79,6 +80,13 @@
       <!-- <version>${camel.version}</version> -->
       <!-- use the same version as your Camel core version -->
     </dependency>
+    <!-- Dev Tools-->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-devtools</artifactId>
+      <optional>true</optional>
+    </dependency>
+
     <!-- Camel JSON Jackson -->
     <dependency>
       <groupId>org.apache.camel</groupId>
@@ -89,11 +97,17 @@
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-jacksonxml</artifactId>
     </dependency>
-    <!-- Camel Quartz--> 
+    <!-- XSL-->
+    <dependency>
+      <groupId>org.apache.camel.springboot</groupId>
+      <artifactId>camel-xslt-starter</artifactId>
+    </dependency>
+
+    <!-- Camel Quartz-->
     <dependency>
       <groupId>org.apache.camel.springboot</groupId>
       <artifactId>camel-quartz-starter</artifactId>
-  </dependency>
+    </dependency>
     <!-- JSON web token -->
     <dependency>
       <groupId>io.jsonwebtoken</groupId>
@@ -160,8 +174,8 @@
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.8.1</version>
         <configuration>
-          <source>1.11</source>
-          <target>1.11</target>
+          <source>1.8</source>
+          <target>1.8</target>
         </configuration>
       </plugin>
       <plugin>

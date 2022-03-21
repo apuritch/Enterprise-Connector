@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
-
+<xsl:param name="current-datetime"/>
   <xsl:template match="/">
     <html>
       <head>
      </head>
       <body>
-        <h2>Drive BC Events</h2>
+        <h2>Drive BC Events - Last Updated at <xsl:value-of select = "$current-datetime" /> </h2>
         <table>
           <tr>
             <th>Headline</th>

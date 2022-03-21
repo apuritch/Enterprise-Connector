@@ -10,7 +10,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonIgnoreProperties({ "+ivr_message", "+linear_reference_km" })
+
+@JsonIgnoreProperties(ignoreUnknown=true)
+//@JsonIgnoreProperties({ "+ivr_message", "+linear_reference_km" })
 
 @JsonPropertyOrder({
     "jurisdiction_url",
