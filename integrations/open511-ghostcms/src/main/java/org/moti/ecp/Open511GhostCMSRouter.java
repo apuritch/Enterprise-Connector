@@ -18,7 +18,7 @@ public class Open511GhostCMSRouter extends RouteBuilder {
   @Override
   public void configure() {
 
-    from("quartz://open511eventsTimer?cron={{drivebc-ghostcms.camel.cron}}") // CRON format for every 10 minutes
+    from("quartz://open511eventsTimer?cron=0+0/10+*+*+*+?") // CRON format for every 10 minutes
         .routeId("Camel-Open511-GhostCMS")   
          
         .setHeader(Exchange.HTTP_METHOD, simple("GET"))
