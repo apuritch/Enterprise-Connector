@@ -19,7 +19,7 @@ public class Open511GhostCMSRouter extends RouteBuilder {
   public void configure() {
 
     from("quartz://open511eventsTimer?cron={{drivebc-ghostcms.camel.cron}}") // CRON format for every 10 minutes
-        .routeId("Camel-Open511-GhostCMS")   
+        .routeId("{{camel.springboot.name}}")   
          
         .setHeader(Exchange.HTTP_METHOD, simple("GET"))
         .log("API Call to : http://{{application.open511.apiroot}}/events?bridgeEndpoint=true")
