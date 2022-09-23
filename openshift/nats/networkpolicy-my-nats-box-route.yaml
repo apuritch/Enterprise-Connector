@@ -1,0 +1,26 @@
+﻿kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: my-nats-box-route
+  namespace: b07b69-dev
+  uid: f5560a4f-c76f-407f-92f7-7c377c8b3a08
+  resourceVersion: '4604658751'
+  generation: 1
+  creationTimestamp: '2022-09-22T23:46:35Z'
+  managedFields:
+    - manager: Mozilla
+      operation: Update
+      apiVersion: networking.k8s.io/v1
+      time: '2022-09-22T23:46:35Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:spec':
+          'f:ingress': {}
+          'f:policyTypes': {}
+spec:
+  podSelector: {}
+  ingress:
+    - from:
+        - podSelector: {}
+  policyTypes:
+    - Ingress
