@@ -1,0 +1,68 @@
+﻿kind: DeploymentConfig
+apiVersion: apps.openshift.io/v1
+metadata:
+  annotations:
+    app.openshift.io/vcs-ref: master
+    app.openshift.io/vcs-uri: 'https://github.com/bcgov/Enterprise-Connector'
+  name: logstash-git
+  labels:
+    app: logstash-git
+    app.kubernetes.io/component: logstash-git
+    app.kubernetes.io/instance: logstash-git
+    app.kubernetes.io/part-of: observability
+spec:
+  strategy:
+    type: Rolling
+    rollingParams:
+      updatePeriodSeconds: 1
+      intervalSeconds: 1
+      timeoutSeconds: 600
+      maxUnavailable: 25%
+      maxSurge: 25%
+    resources: {}
+    activeDeadlineSeconds: 21600
+  triggers:
+    - type: ImageChange
+      imageChangeParams:
+        automatic: true
+        containerNames:
+          - logstash-git
+        from:
+          kind: ImageStreamTag
+          name: 'logstash-git:latest'
+    - type: ConfigChange
+  replicas: 1
+  revisionHistoryLimit: 10
+  test: false
+  selector:
+    app: logstash-git
+    deploymentconfig: logstash-git
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: logstash-git
+        deploymentconfig: logstash-git
+    spec:
+      containers:
+        - name: logstash-git
+          envFrom:
+            - configMapRef:
+                name: ecp-logstash-config
+          resources: {}
+          readinessProbe:
+            tcpSocket:
+              port: 8001
+            initialDelaySeconds: 120
+            timeoutSeconds: 1
+            periodSeconds: 10
+            successThreshold: 1
+            failureThreshold: 3
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          imagePullPolicy: Always
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+      dnsPolicy: ClusterFirst
+      securityContext: {}
+      schedulerName: default-scheduler

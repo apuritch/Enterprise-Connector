@@ -1,0 +1,110 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: camera-web-app
+  labels:
+    app: camera-web-app
+    app.kubernetes.io/part-of: Integrations
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: camera-web-app
+  template:
+    metadata:
+      labels:
+        app: camera-web-app
+        deploymentconfig: camera-web-app
+    spec:
+      containers:
+        - name: camera-web-app
+          env:
+            - name: ImageApi__Url
+              valueFrom:
+                secretKeyRef:
+                  name: camera-api-secret
+                  key: Url
+            - name: ImageApi__Ssa
+              valueFrom:
+                secretKeyRef:
+                  name: camera-api-secret
+                  key: Ssa
+            - name: Hangfire__Interval
+              valueFrom:
+                secretKeyRef:
+                  name: camera-api-secret
+                  key: Interval
+          image: >-
+            image-registry.openshift-image-registry.svc:5000/b07b69-tools/camera-web-app:latest
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          resources:
+            requests:
+              cpu: 100m
+              memory: 200Mi
+            limits:
+              cpu: 200m
+              memory: 300Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          imagePullPolicy: IfNotPresent
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+      dnsPolicy: ClusterFirst
+      securityContext: {}
+      schedulerName: default-scheduler
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 25%
+      maxSurge: 25%
+  revisionHistoryLimit: 10
+  progressDeadlineSeconds: 600
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: camera-web-app
+spec:
+  ports:
+    - name: web
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+  selector:
+    deploymentconfig: camera-web-app
+---
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  annotations:
+    haproxy.router.openshift.io/timeout: 5m
+  name: camera-web-app
+spec:
+  host: camera-web-app-b07b69-dev.apps.silver.devops.gov.bc.ca
+  path: "/"
+  port:
+    targetPort: web
+  tls:
+    termination: edge
+  to:
+    kind: Service
+    name: camera-web-app
+    weight: 100
+  wildcardPolicy: None
+---
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: allow-camera-web-app
+spec:
+  podSelector:
+    matchLabels:
+      deploymentconfig: camera-web-app
+  ingress:
+    - ports:
+        - protocol: TCP
+          port: 8080
+  policyTypes:
+    - Ingress

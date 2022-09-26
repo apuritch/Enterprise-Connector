@@ -57,12 +57,8 @@ spec:
         - name: source
           workspace: workspace
     - name: deploy
-      params:
-        - name: ARGS
-          value:
-            - rollout
-            - status
-            - dc/$(params.APP_NAME)
+        - name: SCRIPT
+          value: oc rollout status dc/$(params.APP_NAME)
       runAfter:
         - build
       taskRef:

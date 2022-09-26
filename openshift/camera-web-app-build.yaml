@@ -1,0 +1,31 @@
+kind: ImageStream
+apiVersion: image.openshift.io/v1
+metadata:
+  labels:
+    shared: "true"
+  name: camera-web-app
+spec:
+  lookupPolicy:
+    local: false
+---
+kind: BuildConfig
+apiVersion: build.openshift.io/v1
+metadata:
+  name: camera-web-app
+spec:
+  nodeSelector: null
+  output:
+    to:
+      kind: ImageStreamTag
+      name: camera-web-app:latest
+  source:
+    type: Git
+    git:
+      uri: "https://github.com/bcgov/Enterprise-Connector"
+    contextDir: CameraWebApp
+  strategy:
+    type: Source
+    sourceStrategy:
+      from:
+        kind: ImageStreamTag
+        name: dotnet-60:6.0-15.20220727145329

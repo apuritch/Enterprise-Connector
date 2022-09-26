@@ -1,0 +1,32 @@
+kind: ImageStream
+apiVersion: image.openshift.io/v1
+metadata:
+  labels:
+    shared: "true"
+  name: drivebc-open511
+spec:
+  lookupPolicy:
+    local: false
+---
+kind: BuildConfig
+apiVersion: build.openshift.io/v1
+metadata:
+  name: drivebc-open511
+spec:
+  runPolicy: Serial
+  output:
+    to:
+      kind: ImageStreamTag
+      name: drivebc-open511:latest
+  source:
+    git:
+      uri: https://github.com/bcgov/Enterprise-Connector.git
+      ref: "0.12"
+    type: Git
+    contextDir: integrations/drivebc-open511
+  strategy:
+    sourceStrategy:
+      from:
+        kind: DockerImage
+        name: image-registry.openshift-image-registry.svc:5000/openshift/java:openjdk-11-el7
+    type: Source

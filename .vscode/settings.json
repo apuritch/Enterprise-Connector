@@ -1,8 +1,3 @@
 {
-    "java.project.referencedLibraries": [
-        "lib/**/*.jar",
-        "c:\\Users\\puritch\\AppData\\Roaming\\Code\\User\\globalStorage\\redhat.vscode-camelk\\java-dependencies-3.11.1\\dependencies/*.jar"
-    ],
-    "java.configuration.updateBuildConfiguration": "interactive",
-    "java.dependency.syncWithFolderExplorer": true
+  "java.configuration.updateBuildConfiguration": "interactive"
 }

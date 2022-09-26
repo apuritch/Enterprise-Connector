@@ -1,0 +1,31 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+    string guid = Guid.NewGuid().ToString();
+    string east = "~/images/East.jpg?" + guid;
+    string west = "~/images/West.jpg?" + guid;
+    string north = "~/images/North.jpg?" + guid;
+    string south = "~/images/South_655.jpg?" + guid;
+
+}
+<div class="container">
+
+    <div class="container my-3">
+        Last updated at @Model.UpdatedTime UTC
+    </div>
+
+    <div class="my-1 mx-1">
+        <img src="@Url.Content(east)" alt="East" title="East" />
+    </div>
+    <div class="my-1 mx-1">
+        <img src="@Url.Content(west)" alt="West" title="West" />
+    </div>
+    <div class="my-1 mx-1">
+        <img src="@Url.Content(north)" alt="North" title="North" />
+    </div>
+    <div class="my-1 mx-1">
+        <img src="@Url.Content(south)" alt="South" title="South" />
+    </div>
+</div>
+
