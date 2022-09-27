@@ -46,3 +46,13 @@ integrations/health-checks/target/maven-status/maven-compiler-plugin/compile/def
 integrations/drivebc-open511/target/*
 integrations/drivebc-open511/.vscode/*
 integrations/open511-ghostcms/target/classes/application.properties
+.env
+.vscode/settings.json
+integrations/open511-nats/target/open511-nats-1.0-SNAPSHOT.jar.original
+integrations/open511-nats/target/classes/application.properties
+integrations/open511-nats/target/classes/logback.xml
+integrations/open511-nats/target/classes/META-INF/LICENSE.txt
+integrations/open511-nats/target/classes/META-INF/NOTICE.txt
+integrations/open511-nats/target/maven-archiver/pom.properties
+integrations/open511-nats/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst
+integrations/open511-nats/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst
