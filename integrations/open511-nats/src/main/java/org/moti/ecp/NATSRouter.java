@@ -16,32 +16,26 @@ public class NATSRouter extends RouteBuilder {
   public void configure() {
 
 
-    from("quartz://open511eventsTimer?cron={{open511-nats.camel.cron}}") // CRON format for
-        .routeId("open511-nats")
+    // from("quartz://open511eventsTimer?cron={{open511-nats.camel.cron}}") // CRON format for
+    //     .routeId("open511-nats")
 
-        .toD(
-            "http://{{application.open511.apiroot}}/events?{{application.open511.parameters}}&updated=>${date-with-timezone:now-0h{{open511-nats.polling.interval.minutes}}m:PST:yyyy-MM-dd HH:mm}&bridgeEndpoint=true")
-        .to("direct:control");
+    //     .toD(
+    //         "http://{{application.open511.apiroot}}/events?{{application.open511.parameters}}&updated=>${date-with-timezone:now-0h{{open511-nats.polling.interval.minutes}}m:PST:yyyy-MM-dd HH:mm}&bridgeEndpoint=true")
+    //         .split().jsonpathWriteAsString("$.events.[*]")
+    //         .to("direct:loggy")
+    //     .choice()
+    //       .when().jsonpath("$.events[?(@.length() < 1)]")
+    //          .log ("***** No New Events ******")
+    //       .otherwise()
+    //          .log( "#######  Events found and sent to NATS ####### ")
+    //          .to("nats:test?servers={{nats.server}}")
+    //      .end();
 
-        from("direct:control")
-        
-        .choice()
-          .when().jsonpath("$.events[?(@.length() < 1)]").to("direct:no.events")
-          .otherwise().to("direct:pub.to.nats")
-        ;
-
-        from ("direct:no.events")
-        .log ("***** No New Events ******")
-        ;
-
-        from ("direct:pub.to.nats")
-          .log( "#######  Events found and sent to NATS ####### ")
-        .to("nats:test?servers={{nats.server}}");
-        ;
-
-        // loop to show whats in the NATS 
-        // from("nats:test?servers={{nats.server}}&maxMessages=3")
-        // .to("stream:out")   ;
+    //     // loop to show whats in the NATS 
+    //     // from("nats:test?servers={{nats.server}}&maxMessages=3")     
+    //     // .to("stream:out")   ;
+    //     from ("direct:loggy")
+    //     .to("log:hello");
 
       }
 

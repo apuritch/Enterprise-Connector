@@ -92,7 +92,20 @@
       <artifactId>spring-boot-devtools</artifactId>
       <optional>true</optional>
     </dependency>
-
+    <dependency>
+      <groupId>org.apache.camel</groupId>
+      <artifactId>camel-xstream</artifactId>
+      
+    </dependency>
+    <dependency>
+      <groupId>org.apache.camel</groupId>
+      <artifactId>camel-johnzon</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.camel</groupId>
+      <artifactId>camel-gson</artifactId>
+      
+    </dependency>
     <!-- Camel JSON Jackson -->
     <dependency>
       <groupId>org.apache.camel</groupId>
