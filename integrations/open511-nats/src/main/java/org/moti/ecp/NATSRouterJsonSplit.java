@@ -30,6 +30,6 @@ public class NATSRouterJsonSplit extends RouteBuilder {
           .split().jsonpathWriteAsString("$.events[*]")
           .streaming()
           .log("${body}")
-          .to("nats:test?servers={{nats.server}}");
+          .to("nats:roadevents?servers={{nats.server}}");
   }
 }
